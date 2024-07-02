@@ -1,9 +1,9 @@
 const { Sequelize } = require("sequelize");
 
-const sequelize = new Sequelize({
+const database = new Sequelize({
   dialect: "db2",
-  database: "NOWDEV",
-  host: "10.4.4.111",
+  database: "NOWQA",
+  host: "10.4.4.112",
   port: 25010,
   username: "db2admin",
   password: "Admin@123",
@@ -15,13 +15,15 @@ const sequelize = new Sequelize({
 });
 
 // Test the database connection
-sequelize
+database
   .authenticate()
-  .then(() => {
-    console.log("Database connection has been established successfully.");
-  })
+  .then(() =>
+    process.env.ENVIORNMENT === "PRODUCTION"
+      ? console.log("PRODUCTION  --  DB2 FROM NOW  -- ")
+      : console.log("DEVELOPMENT --  DB2 FROM NOW -- ")
+  )
   .catch((error) => {
     console.error("Unable to connect to the database:", error);
   });
 
-module.exports = sequelize;
+module.exports = database;

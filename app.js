@@ -3,13 +3,11 @@ const app = express();
 const cors = require("cors");
 const port = 3001;
 
-const qualityDataRouter = require("./routes/qualityData");
-
 app.use(express.json());
 app.use(cors());
 
 // Mount the quality data route
-app.use("/", qualityDataRouter);
+app.use(require("./routers/router"));
 
 // Start the Express server
 app.listen(port, () => {
